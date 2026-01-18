@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  spring-security-sso:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spring-security-sso
+    ports:
+      - "8080:8080"
+    environment:
+      # OAuth2 Configuration
+      - GITHUB_CLIENT_ID=${GITHUB_CLIENT_ID}
+      - GITHUB_CLIENT_SECRET=${GITHUB_CLIENT_SECRET}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+
+      # Server Configuration
+      - SERVER_PORT=8080
+      - SPRING_PROFILES_ACTIVE=prod
+
+      # Security Settings (Production)
+      - SERVER_SERVLET_SESSION_COOKIE_SECURE=true
+      - SERVER_SERVLET_SESSION_COOKIE_HTTP_ONLY=true
+      - SERVER_SERVLET_SESSION_COOKIE_SAME_SITE=strict
+
+    restart: unless-stopped
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+    networks:
+      - spring-network
+
+networks:
+  spring-network:
+    driver: bridge
