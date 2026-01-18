@@ -6,7 +6,7 @@ A modern, feature-rich **Single Sign-On (SSO)** application built with **Spring 
 
 - ✅ **OAuth2 Integration** with GitHub and Google
 - ✅ **Spring Security 6.x** for robust authentication
-- ✅ **Spring Boot 4.0.1** with latest Java 25 support
+- ✅ **Spring Boot 4.0.1** with Java 17 LTS support
 - ✅ **User-Friendly Authentication Flow**
 - ✅ **Session Management**
 - ✅ **Responsive Web Interface** (MVC-based)
@@ -17,7 +17,7 @@ A modern, feature-rich **Single Sign-On (SSO)** application built with **Spring 
 
 ### Prerequisites
 
-- **Java 25** or higher
+- **Java 17** or higher (LTS version)
 - **Maven 3.6+**
 - Git
 
