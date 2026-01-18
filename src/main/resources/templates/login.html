@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Spring Security SSO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 50px 40px;
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1em;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #c33;
+        }
+
+        .oauth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .oauth-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .oauth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .oauth-btn img {
+            width: 24px;
+            height: 24px;
+            margin-right: 12px;
+        }
+
+        .github-btn {
+            background: #24292e;
+            color: white;
+        }
+
+        .github-btn:hover {
+            background: #1a1e22;
+        }
+
+        .google-btn {
+            background: white;
+            color: #333;
+            border: 2px solid #ddd;
+        }
+
+        .google-btn:hover {
+            border-color: #bbb;
+            background: #f9f9f9;
+        }
+
+        .divider {
+            margin: 30px 0;
+            display: flex;
+            align-items: center;
+            color: #999;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .divider span {
+            padding: 0 15px;
+            font-size: 0.9em;
+        }
+
+        .back-link {
+            margin-top: 30px;
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .security-notice {
+            margin-top: 30px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .icon {
+            font-size: 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>🔐 Sign In</h1>
+        <p class="subtitle">Choose your authentication provider</p>
+
+        <div th:if="${param.error}" class="error-message">
+            ⚠️ Authentication failed. Please try again.
+        </div>
+
+        <div th:if="${param.logout}" class="error-message" style="background: #e8f5e9; color: #2e7d32; border-left-color: #2e7d32;">
+            ✓ You have been logged out successfully.
+        </div>
+
+        <div class="oauth-buttons">
+            <a href="/oauth2/authorization/github" class="oauth-btn github-btn">
+                <span class="icon">🐙</span>
+                Continue with GitHub
+            </a>
+
+            <a href="/oauth2/authorization/google" class="oauth-btn google-btn">
+                <span class="icon">🔵</span>
+                Continue with Google
+            </a>
+        </div>
+
+        <div class="divider">
+            <span>or</span>
+        </div>
+
+        <a href="/" class="back-link">← Back to Home</a>
+
+        <div class="security-notice">
+            🔒 Your data is protected by Spring Security 6.x and OAuth2 standards
+        </div>
+    </div>
+</body>
+</html>
